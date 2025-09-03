@@ -1,12 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Bocado de Nutrição</title>
-  <link rel="manifest" href="manifest.json?v=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bocado de Nutrição – PWA</title>
+
+  <!-- Tema / PWA -->
+  <meta name="theme-color" content="#ff3b30" />
+  <link rel="manifest" href="manifest.json?v=1" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-512.png" />
+
+  <!-- SEO / Social -->
+  <meta name="description" content="Bocado de Nutrição – receitas, planos e diário alimentar para saúde, performance e sabor." />
+  <meta property="og:title" content="Bocado de Nutrição – PWA" />
+  <meta property="og:description" content="Instale o app do Bocado de Nutrição no seu dispositivo." />
+  <meta property="og:image" content="icons/icon-512.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonte opcional (super leve) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f0f12;
+      --card: #17171c;
+      --muted: #a9abb3;
+      --text: #ffffff;
+      --brand: #ff3b30;
+      --brand2: #ff6a39;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(80% 60% at 20% 0%, rgba(255,106,57,.18), transparent 60%),
+        radial-gradient(80% 60% at 100% 20%, rgba(255,59,48,.20), transparent 60%),
+        var(--bg);
+      display:flex; align-items:center; justify-content:center;
+      padding:28px;
+    }
+    .shell{
+      width:min(920px,100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns: 130px 1fr auto;
+      gap:22px; padding:28px;
+      align-items:center;
+      background:
+        radial-gradient(1200px 380px at -10% -40%, rgba(255,106,57,.35), transparent 60%),
+        radial-gradient(600px 300px at 120% -10%, rgba(255,59,48,.28), transparent 60%),
+        #141418;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .logo{
+      width:110px; height:110px; border-radius:24px; overflow:hidden;
+      box-shadow:0 8px 28px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.1);
+      background:#000 center/cover no-repeat url("icons/icon-512.png");
+    }
+    h1{
+      margin:0 0 8px; font-size:clamp(26px,3.8vw,38px); letter-spacing:.2px;
+    }
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px; border-radius:999px; font-weight:600;
+      font-size:13px; color:#fff; background:linear-gradient(90deg,var(--brand),var(--brand2));
+      box-shadow:0 6px 18px rgba(255,90,60,.35);
+    }
+    .muted{color:var(--muted); font-size:14px}
+
+    .cta{
+      display:flex; gap:12px; align-items:center;
+    }
+    button.install{
+      appearance:none; border:none; cursor:pointer;
+      background:linear-gradient(90deg,var(--brand),var(--brand2));
+      color:#fff; font-weight:700; letter-spacing:.2px;
+      padding:12px 18px; border-radius:14px;
+      box-shadow:0 12px 28px rgba(255,90,60,.35);
+      transition:transform .12s ease, filter .12s ease;
+    }
+    button.install:active{transform:translateY(1px)}
+    .ghost{
+      padding:11px 16px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.12); color:#fff;
+      background:transparent; text-decoration:none; font-weight:600;
+    }
+
+    .content{padding:26px; display:grid; gap:18px}
+    .grid{
+      display:grid; gap:18px;
+      grid-template-columns: repeat( auto-fit, minmax(220px, 1fr) );
+    }
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.08);
+      border-radius:18px; padding:18px; min-height:120px;
+    }
+    .card h3{margin:0 0 8px; font-size:16px}
+    .foot{
+      padding:18px 26px; display:flex; gap:12px; justify-content:space-between; align-items:center;
+      border-top:1px solid rgba(255,255,255,.06); color:var(--muted); font-size:13px;
+    }
+    .foot a{color:#fff; opacity:.9}
+  </style>
 </head>
 <body>
-  <h1>🚀 Bocado de Nutrição</h1>
-  <p>Manifesto hospedado com sucesso no GitHub Pages 🎉</p>
-</body>
-</html>
+  <main class="shell" role="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <div class="tag">🔥 Bocado de Nutrição</div>
+        <h1>Seu app PWA está pronto para instalar</h1>
+        <p class="muted">Receitas, planos e diário alimentar para saúde, performance e sabor. Instale e use como aplicativo no seu dispositivo.</p>
+      </div>
+      <div class="cta">
+        <button class="install" id="btnInstall" hidden>Instalar app</button>
+        <a class="ghost" href="manifest.json?v=1" target="_blank" rel="noopener">Ver manifest</a>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="content">
+      <div class="grid">
+        <article class="card">
+          <h3>✅ Manifesto válido</h3>
+          <p class="muted">Ícones 192/512, theme_color, screenshots e mais – pronto para empacotar na Play Store com PWABuilder.</p>
+        </article>
+        <article class="card">
+          <h3>📲 Instalável</h3>
+          <p class="muted">Use o botão <strong>Instalar app</strong> (Chrome/Edge/Android). No iOS, use <em>Compartilhar → Adicionar à Tela de Início</em>.</p>
+        </article>
+        <article class="card">
+          <h3>⚡ Rápido e leve</h3>
+          <p class="muted">Página estática só para entregar os assets do PWA com estabilidade.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>© <span id="y"></span> Bocado de Nutrição</span>
+      <span>
+        <a href="icons/icon-192.png" target="_blank">ícone 192</a> ·
+        <a href=
